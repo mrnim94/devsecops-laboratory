@@ -12,8 +12,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Run TruffleHog
-        run: |
-          docker pull dxa4481/trufflehog
-          ls ${{ github.workspace }}
-          docker run -v ${{ github.workspace }}:/target dxa4481/trufflehog file:///target
+        with:
+          fetch-depth: 0
+      - name: TruffleHog OSS
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          extra_args: --debug --only-verified
