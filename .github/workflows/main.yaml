@@ -15,4 +15,5 @@ jobs:
       - name: Run TruffleHog
         run: |
           docker pull dxa4481/trufflehog
+          ls ${{ github.workspace }}
           docker run -v ${{ github.workspace }}:/target dxa4481/trufflehog file:///target
